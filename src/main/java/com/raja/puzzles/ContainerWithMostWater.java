@@ -13,7 +13,25 @@ package com.raja.puzzles;
 public class ContainerWithMostWater {
 
     public static int maxArea(int[] height) {
-        // TODO: implement - return the maximum water container area
-        return 0;
+        if (height == null || height.length < 2) return 0;
+
+        int left = 0, right = height.length - 1, best = 0; 
+
+        while (left < right) {
+            int w = right - left;
+            int area = w * Math.min(height[left], height[right]); 
+            best = Math.max(best, area); 
+
+            if (height[left] < height[right]) {
+                left++;
+            } else if (height[left] > height[right]) {
+                right--;
+            } else {
+                left++;
+                right--;
+            }
+        }
+
+        return best;
     }
 }
