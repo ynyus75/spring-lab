@@ -1,5 +1,8 @@
 package com.raja.puzzles;
 
+import java.util.Set;
+import java.util.HashSet;
+
 /**
  * PATTERN: Sliding Window (variable size)
  * TRIGGER: "longest / shortest substring with a constraint" -> grow the
@@ -13,8 +16,22 @@ package com.raja.puzzles;
 public class LongestSubstringWithoutRepeating {
 
     public static int lengthOfLongestSubstring(String s) {
-        // TODO: implement - return the length of the longest substring
-        // without repeating characters
-        return 0;
+
+	    if (s == null) return 0;
+
+	    int left = 0, length = 0, best = 0; 
+	    Set<Character> set = new HashSet<>();
+
+	    for (int right = left; right < s.length(); right++) {
+		    char c = s.charAt(right);
+		    while(set.contains(c)) {
+			    set.remove(s.charAt(left));
+			    left++;
+		    }
+		    set.add(c);
+		    length++;
+		    best = Math.max(best, right-left+1);
+	    }
+        return best;
     }
 }
