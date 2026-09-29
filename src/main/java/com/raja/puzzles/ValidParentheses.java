@@ -14,7 +14,23 @@ import java.util.Deque;
 public class ValidParentheses {
 
     public static boolean isValid(String s) {
-        // TODO: implement - return true only if every bracket closes correctly
-        return false;
+        if (s == null) return false;
+
+        Deque<Character> stack = new ArrayDeque<>();
+
+        for (char c : s.toCharArray()) {
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c);
+            } else {
+                if (
+                        stack.isEmpty() ||
+                        c == ')' && stack.peek() != '(' ||
+                        c == ']' && stack.peek() != '[' ||
+                        c == '}' && stack.peek() != '{'
+                        ) return false;
+                stack.pop();
+            }
+        }
+        return stack.isEmpty();
     }
 }
